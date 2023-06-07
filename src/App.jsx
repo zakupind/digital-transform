@@ -1,26 +1,54 @@
-import logo from './logo.svg'
-
-import './App.css'
+import './App.css';
+import { useSelector } from 'react-redux';
+import { useCallback } from 'react';
+import api from './api';
+import { getTextRequest } from './constants/tamplate';
+import { Form } from './components/Form';
+import { Result } from './components/Result';
 
 function App() {
+  const {
+    branch,
+    digitalLevel,
+    companyLavel,
+    geo,
+    target,
+    budget,
+    currency,
+    processes,
+  } = useSelector((state) => state.form);
+
+  const [openApiReq, { data, isSuccess, isLoading }] = api.useGetDataMutation();
+
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      await openApiReq({
+        content: getTextRequest({
+          branch,
+          digitalLevel,
+          companyLavel,
+          geo,
+          target,
+          budget,
+          currency,
+          processes,
+        }),
+      });
+    },
+    [openApiReq]
+  );
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Form handleSubmit={handleSubmit} />
+      <Result
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        content={data?.choices[0]?.message?.content}
+      />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
