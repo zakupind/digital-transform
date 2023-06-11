@@ -36,7 +36,16 @@ function App() {
         }),
       });
     },
-    [openApiReq]
+    [
+      openApiReq,
+      digitalLevel,
+      companyLavel,
+      geo,
+      target,
+      budget,
+      currency,
+      processes,
+    ]
   );
 
   return (

@@ -1,13 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
+import {
+  optionsDigitalLavel,
+  optionsCompanyLavel,
+  optionsCurrency,
+} from '../constants/options';
 
 const initialState = {
   branch: '',
-  digitalLevel: '',
-  companyLavel: '',
+  digitalLevel: optionsDigitalLavel[0].value,
+  companyLavel: optionsCompanyLavel[0].value,
   geo: '',
   target: '',
   budget: '',
-  currency: '',
+  currency: optionsCurrency[0].value,
   processes: '',
 };
 
