@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   branch: '',
@@ -15,29 +15,29 @@ export const form = createSlice({
   name: 'form',
   initialState,
   reducers: {
-    setBranch: (store, payload) => {
-      store.branch = payload;
+    setBranch: (state, action) => {
+      state.branch = action.payload;
     },
-    setDigitalLevel: (store, payload) => {
-      store.digitalLevel = payload;
+    setDigitalLevel: (state, action) => {
+      state.digitalLevel = action.payload;
     },
-    setCompanyLavel: (store, payload) => {
-      store.companyLavel = payload;
+    setCompanyLavel: (state, action) => {
+      state.companyLavel = action.payload;
     },
-    setGeo: (store, payload) => {
-      store.geo = payload;
+    setGeo: (state, action) => {
+      state.geo = action.payload;
     },
-    setTarget: (store, payload) => {
-      store.target = payload;
+    setTarget: (state, action) => {
+      state.target = action.payload;
     },
-    setBudget: (store, payload) => {
-      store.budget = payload;
+    setBudget: (state, action) => {
+      state.budget = action.payload;
     },
-    setCurrency: (store, payload) => {
-      store.currency = payload;
+    setCurrency: (state, action) => {
+      state.currency = action.payload;
     },
-    setProcesses: (store, payload) => {
-      store.processes = payload;
+    setProcesses: (state, action) => {
+      state.processes = action.payload;
     },
   },
 });
@@ -55,8 +55,3 @@ export const {
 } = form.actions;
 
 export const formReducer = form.reducer;
-
-const getData = createAsyncThunk(
-  'chatGPT/get-data',
-  (data, { store, dispatch }) => {}
-);

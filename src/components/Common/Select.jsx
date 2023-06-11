@@ -3,12 +3,7 @@ import styled from '@emotion/styled';
 export const Select = ({ id, label, options, setValue }, props) => (
   <Label htmlFor={id}>
     {label}
-    <SelectStyled
-      name={id}
-      id={id}
-      onChange={(e) => setValue(e.target.value)}
-      {...props}
-    >
+    <SelectStyled name={id} id={id} onChange={setValue} {...props}>
       {options.map((option) => (
         <option value={option.value}>{option.name}</option>
       ))}

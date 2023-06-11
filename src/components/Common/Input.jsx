@@ -1,13 +1,14 @@
 import styled from '@emotion/styled';
 
-export const Input = ({ id, name, value, setValue }) => (
+export const Input = ({ id, name, value, setValue }, props) => (
   <Label htmlFor={id}>
     {name}
     <StyledInput
       id={id}
       type="text"
       value={value}
-      onChange={(e) => setValue(e.target.value)}
+      onChange={setValue}
+      {...props}
     />
   </Label>
 );

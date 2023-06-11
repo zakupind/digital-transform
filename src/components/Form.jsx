@@ -68,7 +68,7 @@ export const Form = ({ handleSubmit }) => {
         <Budget>
           <Input
             value={budget}
-            setValue={(e) => dispatch(setBudget(e.taget.value))}
+            setValue={(e) => dispatch(setBudget(e.target.value))}
             id="target"
             name="Бюджет на цифровую трансформацию"
           />
