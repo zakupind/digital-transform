@@ -3,6 +3,7 @@ import { Loading } from './Loading';
 
 export const Result = ({ isSuccess, isLoading, content }) => (
   <Wrapper>
+    {!process.env.REACT_APP_GPT_API_KEY && 'Добавьте API_KEY'}
     {isLoading && <Loading />}
     {isSuccess && content.split(/\n/).map((p) => <p>{p}</p>)}
   </Wrapper>

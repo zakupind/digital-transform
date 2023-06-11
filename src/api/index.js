@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const URL_API = 'https://api.openai.com/v1/';
 
-const OPENAI_API_KEY = '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';
+const OPENAI_API_KEY = process.env.REACT_APP_GPT_API_KEY;
 
 const CONFIG_API = {
   baseUrl: URL_API,

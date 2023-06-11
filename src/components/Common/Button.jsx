@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 
 export const Button = ({ children }, props) => (
-  <ButtonStyled {...props}>{children}</ButtonStyled>
+  <ButtonStyled {...props} disabled={!process.env.REACT_APP_GPT_API_KEY}>
+    {children}
+  </ButtonStyled>
 );
 
 const ButtonStyled = styled.button`
