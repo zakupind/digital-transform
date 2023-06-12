@@ -34,15 +34,15 @@ function App() {
   return (
     <div className="App">
       <Form handleSubmit={handleSubmit} />
-      <Cases
-        data={airtable.data}
-        isLoading={airtable.isLoading}
-        isSuccess={airtable.isSuccess}
-      />
       <Result
         isLoading={isLoading}
         isSuccess={isSuccess}
         content={data?.choices[0]?.message?.content}
+      />
+      <Cases
+        data={airtable.data}
+        isLoading={airtable.isLoading}
+        isSuccess={airtable.isSuccess}
       />
     </div>
   );
