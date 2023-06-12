@@ -2,16 +2,18 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import { uiReducer } from './ui';
 import { formReducer } from './form';
-import api from '../api';
+import apiGpt from '../api/gpt';
+import apiAirtable from '../api/airTable';
 
 const reducer = combineReducers({
   ui: uiReducer,
   form: formReducer,
-  [api.reducerPath]: api.reducer,
+  [apiGpt.reducerPath]: apiGpt.reducer,
+  [apiAirtable.reducerPath]: apiAirtable.reducer,
 });
 
 export const store = configureStore({
   reducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(api.middleware),
+    getDefaultMiddleware().concat(apiGpt.middleware, apiAirtable.middleware),
 });

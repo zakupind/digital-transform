@@ -1,56 +1,43 @@
 import './App.css';
 import { useSelector } from 'react-redux';
 import { useCallback } from 'react';
-import api from './api';
-import { getTextRequest } from './constants/tamplate';
+import apiGpt from './api/gpt';
+import apiAirtable from './api/airTable';
 import { Form } from './components/Form';
 import { Result } from './components/Result';
+import { Cases } from './components/Cases';
 
 function App() {
-  const {
-    branch,
-    digitalLevel,
-    companyLavel,
-    geo,
-    target,
-    budget,
-    currency,
-    processes,
-  } = useSelector((state) => state.form);
+  const formState = useSelector((state) => state.form);
 
-  const [openApiReq, { data, isSuccess, isLoading }] = api.useGetDataMutation();
+  const [openApiReq, { data, isSuccess, isLoading }] =
+    apiGpt.useGetDataMutation();
+
+  const [airtableReq, airtable] = apiAirtable.useLazyGetTablesQuery();
 
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault();
-      await openApiReq({
-        content: getTextRequest({
-          branch,
-          digitalLevel,
-          companyLavel,
-          geo,
-          target,
-          budget,
-          currency,
-          processes,
-        }),
+
+      await airtableReq({
+        budget: formState.budget,
+        companyLevel: formState.companyLevel,
+        branch: formState.branch,
       });
+
+      await openApiReq(formState);
     },
-    [
-      openApiReq,
-      digitalLevel,
-      companyLavel,
-      geo,
-      target,
-      budget,
-      currency,
-      processes,
-    ]
+    [openApiReq, formState]
   );
 
   return (
     <div className="App">
       <Form handleSubmit={handleSubmit} />
+      <Cases
+        data={airtable.data}
+        isLoading={airtable.isLoading}
+        isSuccess={airtable.isSuccess}
+      />
       <Result
         isLoading={isLoading}
         isSuccess={isSuccess}

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Loading } from './Loading';
+import { Loading } from './Common/Loading';
 
 export const Result = ({ isSuccess, isLoading, content }) => (
   <Wrapper>
@@ -11,8 +11,12 @@ export const Result = ({ isSuccess, isLoading, content }) => (
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 400px;
+  height: 600px;
   padding: 20px 30px;
   overflow-x: scroll;
-  border: 1px solid red;
+  margin: 28px auto;
+  color: #fff;
+
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
 `;

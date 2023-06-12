@@ -13,7 +13,7 @@ const CONFIG_API = {
 };
 
 const api = createApi({
-  reducerPath: 'pokemonApi',
+  reducerPath: 'chat_gpt',
   baseQuery: fetchBaseQuery(CONFIG_API),
   endpoints: (builder) => ({
     getData: builder.mutation({

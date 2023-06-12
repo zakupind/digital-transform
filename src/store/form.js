@@ -1,17 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   optionsDigitalLavel,
-  optionsCompanyLavel,
+  optionsCompanyLevel,
   optionsCurrency,
+  optionsBranch,
 } from '../constants/options';
 
 const initialState = {
-  branch: '',
+  branch: optionsBranch[0].value,
   digitalLevel: optionsDigitalLavel[0].value,
-  companyLavel: optionsCompanyLavel[0].value,
+  companyLevel: optionsCompanyLevel[0].value,
   geo: '',
   target: '',
-  budget: '',
+  budget: '1000000',
   currency: optionsCurrency[0].value,
   processes: '',
 };
@@ -26,8 +27,8 @@ export const form = createSlice({
     setDigitalLevel: (state, action) => {
       state.digitalLevel = action.payload;
     },
-    setCompanyLavel: (state, action) => {
-      state.companyLavel = action.payload;
+    setcompanyLevel: (state, action) => {
+      state.companyLevel = action.payload;
     },
     setGeo: (state, action) => {
       state.geo = action.payload;
@@ -51,7 +52,7 @@ export const form = createSlice({
 export const {
   setBranch,
   setDigitalLevel,
-  setCompanyLavel,
+  setcompanyLevel,
   setGeo,
   setTarget,
   setBudget,

@@ -6,13 +6,14 @@ import { Select } from './Common/Select';
 import { Button } from './Common/Button';
 import {
   optionsDigitalLavel,
-  optionsCompanyLavel,
+  optionsCompanyLevel,
   optionsCurrency,
+  optionsBranch,
 } from '../constants/options';
 import {
   setBranch,
   setDigitalLevel,
-  setCompanyLavel,
+  setcompanyLevel,
   setGeo,
   setTarget,
   setBudget,
@@ -20,21 +21,13 @@ import {
   setProcesses,
 } from '../store/form';
 
-// 1. Отрасль промышленности input
-// 2. Текущий уровень цифровизации компании select
-// 3. Размер и масштаб деятельности компании select
-// 4. Географическое расположение input
-// 5. Цели Цифровой трансфомарции input
-// 6. Бюджет на цифровую трансформацию input
-// 7. Бизнес-процессы, которые хотите цифровизировать input
-
 export const Form = ({ handleSubmit }) => {
   const dispatch = useDispatch();
 
   const {
     branch,
     digitalLevel,
-    companyLavel,
+    companyLevel,
     geo,
     target,
     budget,
@@ -44,11 +37,12 @@ export const Form = ({ handleSubmit }) => {
 
   return (
     <Wrapper onSubmit={handleSubmit}>
-      <Input
+      <Select
         value={branch}
         setValue={(e) => dispatch(setBranch(e.target.value))}
-        id="name"
-        name="Отрасль промышленности"
+        id="branch"
+        label="Отрасль промышленности"
+        options={optionsBranch}
       />
       <FullWidth>
         <Select
@@ -61,9 +55,9 @@ export const Form = ({ handleSubmit }) => {
         <Select
           id="company-level"
           label="Размер и масштаб деятельности компани"
-          value={companyLavel}
-          setValue={(e) => dispatch(setCompanyLavel(e.target.value))}
-          options={optionsCompanyLavel}
+          value={companyLevel}
+          setValue={(e) => dispatch(setcompanyLevel(e.target.value))}
+          options={optionsCompanyLevel}
         />
         <Budget>
           <Input
@@ -109,12 +103,11 @@ const Wrapper = styled.form`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 28px;
+  margin: 28px auto;
   padding: 10px 44px;
 
-  border-radius: 50px;
-  background: #aee8f4;
-  box-shadow: 34px 34px 68px #94c5cf, -34px -34px 68px #c8ffff;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
 `;
 
 const FullWidth = styled.div`
