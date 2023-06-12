@@ -26,7 +26,7 @@ function App() {
         branch: formState.branch,
       });
 
-      await openApiReq(getTextRequest(formState));
+      await openApiReq({ content: getTextRequest(formState) });
     },
     [openApiReq, formState]
   );
