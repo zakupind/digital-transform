@@ -6,6 +6,7 @@ import apiAirtable from './api/airTable';
 import { Form } from './components/Form';
 import { Result } from './components/Result';
 import { Cases } from './components/Cases';
+import { getTextRequest } from './constants/tamplate';
 
 function App() {
   const formState = useSelector((state) => state.form);
@@ -25,7 +26,7 @@ function App() {
         branch: formState.branch,
       });
 
-      await openApiReq(formState);
+      await openApiReq(getTextRequest(formState));
     },
     [openApiReq, formState]
   );
