@@ -6,13 +6,29 @@ import apiAirtable from './api/airTable';
 import { Form } from './components/Form';
 import { Result } from './components/Result';
 import { Cases } from './components/Cases';
-import { getTextRequest } from './constants/tamplate';
+import { getTextStrategyRequest, getTextCaseReq } from './constants/tamplate';
+import { CaseIntegration } from './components/CaseIntegration';
 
 function App() {
   const formState = useSelector((state) => state.form);
 
-  const [openApiReq, { data, isSuccess, isLoading }] =
-    apiGpt.useGetDataMutation();
+  const [
+    getStrategyReq,
+    {
+      data: strategy,
+      isSuccess: isSuccessStrategy,
+      isLoading: isLoadingStrategy,
+    },
+  ] = apiGpt.useGetDataMutation();
+
+  const [
+    getCaseReq,
+    {
+      data: transformCase,
+      isSuccess: isSuccessTransform,
+      isLoading: isLoadingTransform,
+    },
+  ] = apiGpt.useGetDataMutation();
 
   const [airtableReq, airtable] = apiAirtable.useLazyGetTablesQuery();
 
@@ -26,23 +42,50 @@ function App() {
         branch: formState.branch,
       });
 
-      await openApiReq({ content: getTextRequest(formState) });
+      await getStrategyReq({ content: getTextStrategyRequest(formState) });
     },
-    [openApiReq, formState]
+    [getStrategyReq, formState]
+  );
+
+  const handleClickCase = useCallback(
+    async (digitalCase) => {
+      const caseDigitalTransform = digitalCase['Кейс цифровой трансформации'];
+      const target = digitalCase['Цели трансформационного решения'];
+      const processes = digitalCase['Бизнес-процессы'];
+      const technologyBase = digitalCase['Технологическая база'].join(', ');
+
+      await getCaseReq({
+        content: getTextCaseReq({
+          branch: formState.branch,
+          caseDigitalTransform,
+          companyLevel: formState.companyLevel,
+          target,
+          processes,
+          technologyBase,
+        }),
+      });
+    },
+    [formState]
   );
 
   return (
     <div className="App">
       <Form handleSubmit={handleSubmit} />
       <Result
-        isLoading={isLoading}
-        isSuccess={isSuccess}
-        content={data?.choices[0]?.message?.content}
+        isLoading={isLoadingStrategy}
+        isSuccess={isSuccessStrategy}
+        content={strategy?.choices[0]?.message?.content}
       />
       <Cases
         data={airtable.data}
         isLoading={airtable.isLoading}
         isSuccess={airtable.isSuccess}
+        handleClickCase={handleClickCase}
+      />
+      <CaseIntegration
+        content={transformCase?.choices[0]?.message?.content}
+        isSuccess={isSuccessTransform}
+        isLoading={isLoadingTransform}
       />
     </div>
   );

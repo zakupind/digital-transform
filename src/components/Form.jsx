@@ -103,7 +103,7 @@ const Wrapper = styled.form`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin: 28px auto;
+  margin: 28px auto 0px;
   padding: 10px 44px;
 
   border-radius: 10px;
